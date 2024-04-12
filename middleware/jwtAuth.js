@@ -23,9 +23,9 @@ const jwtAuth = () => {
       ];
 
       if (error.message == "jwt expired") {
-        error.message = "REFRESH_TOKEN_EXPIRED";
+        error.message = "ACCESS_TOKEN_EXPIRED";
       } else if (errorJwt.includes(error.message)) {
-        error.message = "INVALID_REFRESH_TOKEN";
+        error.message = "INVALID_ACCESS_TOKEN";
       }
 
       return res.status(error.code || 500).json({

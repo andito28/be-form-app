@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const schema = new mongoose.Schema(
   {
@@ -32,5 +33,7 @@ const schema = new mongoose.Schema(
     timestamps: () => Math.floor(Date.now / 1000),
   }
 );
+
+schema.plugin(mongoosePaginate);
 
 export default mongoose.model("Form", schema);
