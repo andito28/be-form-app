@@ -1,6 +1,7 @@
 import express from "express";
 import AuthController from "../controllers/AuthController.js";
 import FormController from "../controllers/FormController.js";
+import QuestionController from "../controllers/QuestionController.js";
 import jwtAuth from "../middleware/jwtAuth.js";
 
 const router = express.Router();
@@ -11,10 +12,17 @@ router.post("/login", AuthController.login);
 router.post("/refresh-token", jwtAuth(), AuthController.refreshToken);
 
 //form
-router.get("/form", jwtAuth(), FormController.index);
-router.post("/form", jwtAuth(), FormController.store);
-router.get("/form/:id", jwtAuth(), FormController.show);
-router.put("/form/:id", jwtAuth(), FormController.update);
-router.delete("/form/:id", jwtAuth(), FormController.destroy);
+router.get("/forms", jwtAuth(), FormController.index);
+router.post("/forms", jwtAuth(), FormController.store);
+router.get("/forms/:id", jwtAuth(), FormController.show);
+router.put("/forms/:id", jwtAuth(), FormController.update);
+router.delete("/forms/:id", jwtAuth(), FormController.destroy);
 
+//question
+router.post("/forms/:id/questions", jwtAuth(), QuestionController.store);
+router.put(
+  "/forms/:id/questions/:questionId",
+  jwtAuth(),
+  QuestionController.update
+);
 export default router;
