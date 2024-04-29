@@ -34,7 +34,6 @@ router.delete(
 );
 
 //option
-// router.get("/forms/:id/questions", jwtAuth(), QuestionController.index);
 router.post(
   "/forms/:id/questions/:questionId/options",
   jwtAuth(),
@@ -45,10 +44,10 @@ router.put(
   jwtAuth(),
   OptionController.update
 );
-// router.delete(
-//   "/forms/:id/questions/:questionId",
-//   jwtAuth(),
-//   QuestionController.destroy
-// );
+router.delete(
+  "/forms/:id/questions/:questionId/options/:optionId",
+  jwtAuth(),
+  OptionController.destroy
+);
 
 export default router;
