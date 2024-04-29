@@ -1,39 +1,39 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
-const schema = new mongoose.Schema(
+// Skema untuk opsi pertanyaan
+const OptionSchema = new mongoose.Schema({
+  id: mongoose.Schema.Types.ObjectId,
+  value: String,
+});
+
+// Skema untuk pertanyaan
+const QuestionSchema = new mongoose.Schema({
+  id: mongoose.Schema.Types.ObjectId,
+  question: String,
+  type: String,
+  required: Boolean,
+  options: [OptionSchema], // Menggunakan skema opsi untuk menentukan opsi dalam pertanyaan
+});
+
+// Skema utama untuk formulir
+const FormSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
-    title: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
-    questions: {
-      type: Array,
-    },
-    invites: {
-      type: Array,
-    },
-    public: {
-      type: Boolean,
-    },
-    created_at: {
-      type: Number,
-    },
-    updated_at: {
-      type: Number,
-    },
+    title: String,
+    description: String,
+    questions: [QuestionSchema], // Menggunakan skema pertanyaan untuk menentukan pertanyaan dalam formulir
+    invites: [String],
+    public: Boolean,
   },
   {
-    timestamps: () => Math.floor(Date.now / 1000),
+    timestamps: true, // Menambahkan waktu pembuatan dan pembaruan secara otomatis
   }
 );
 
-schema.plugin(mongoosePaginate);
+FormSchema.plugin(mongoosePaginate);
 
-export default mongoose.model("Form", schema);
+export default mongoose.model("Form", FormSchema);

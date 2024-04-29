@@ -45,11 +45,10 @@ class QuestionController {
       }
 
       const newQuestion = {
-        id: new mongoose.Types.ObjectId(),
         question: null,
-        types: "Text",
+        type: "Text",
         required: false,
-        option: [],
+        options: [],
       };
 
       const form = await Form.findOneAndUpdate(
@@ -57,6 +56,8 @@ class QuestionController {
         { $push: { questions: newQuestion } },
         { new: true }
       );
+
+      console.log(form);
 
       if (!form) {
         throw { code: 400, message: "ADD_QUESTION_FAILED" };
@@ -87,7 +88,7 @@ class QuestionController {
         throw { code: 400, message: "INVALID_ID" };
       }
       if (!mongoose.Types.ObjectId.isValid(req.params.questionId)) {
-        throw { code: 400, message: "INVALID_ID" };
+        throw { code: 400, message: "REQUIRED_QUESTION_ID" };
       }
 
       const field = {};
