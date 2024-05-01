@@ -4,6 +4,7 @@ import FormController from "../controllers/FormController.js";
 import QuestionController from "../controllers/QuestionController.js";
 import jwtAuth from "../middleware/jwtAuth.js";
 import OptionController from "../controllers/OptionController.js";
+import AnswerController from "../controllers/AnswerController.js";
 
 const router = express.Router();
 
@@ -50,5 +51,8 @@ router.delete(
   jwtAuth(),
   OptionController.destroy
 );
+
+//Answer
+router.post("/answer/:formId", jwtAuth(), AnswerController.store);
 
 export default router;

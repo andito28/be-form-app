@@ -57,8 +57,6 @@ class QuestionController {
         { new: true }
       );
 
-      console.log(form);
-
       if (!form) {
         throw { code: 400, message: "ADD_QUESTION_FAILED" };
       }
